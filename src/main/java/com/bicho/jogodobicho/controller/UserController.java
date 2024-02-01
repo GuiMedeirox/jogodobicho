@@ -15,24 +15,35 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UsuarioService userService;
+    private UsuarioService usuarioService;
 
     @PostMapping("/usuario")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioCreationDTO criarUsuario(@RequestBody UsuarioCreationDTO user){
-        return userService.criar(user);
+        return usuarioService.criar(user);
     }
-    @GetMapping("/usuarios")
+    @GetMapping("/usuario")
     @ResponseStatus(HttpStatus.OK)
     public List<UsuarioDTO> listarUsuarios(){
-        return userService.obterTodos();
+        return usuarioService.obterTodos();
     }
 
     @GetMapping("/usuario/{cpf}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<UsuarioDTO> listarUsuarioPorCpf(@PathVariable(value="cpf") String cpf){
-        return userService.obterPorCpf(cpf);
+        return usuarioService.obterPorCpf(cpf);
+    }
+
+    @PutMapping("/usuario/{cpf}")
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioDTO editarUsuario(@PathVariable(value="cpf") String cpf, @RequestBody UsuarioDTO usuario){
+        return usuarioService.editar(cpf, usuario);
     }
 
 
+    @DeleteMapping("/usuario/{cpf}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarUsuario(@PathVariable(value="cpf") String cpf){
+        usuarioService.deletar(cpf);
+    }
 }

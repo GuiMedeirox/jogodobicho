@@ -10,6 +10,8 @@ import com.bicho.jogodobicho.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
 @Service
 public class UsuarioService {
@@ -21,7 +23,6 @@ public class UsuarioService {
         return listaUsuarios.stream().map(usuario -> new ModelMapper().map(usuario, UsuarioDTO.class)).collect(Collectors.toList());
 
     }
-
     public Optional<UsuarioDTO> obterPorCpf(String cpf){
         Optional<Usuario> usuario = usuarioRepository.findByCpf(cpf);
         if(!usuario.isEmpty()){
@@ -36,6 +37,25 @@ public class UsuarioService {
         Usuario usuario = mapper.map(user, Usuario.class);
         usuarioRepository.save(usuario);
         return user;
+    }
+
+    public UsuarioDTO editar(String cpf, UsuarioDTO user){
+        Optional<Usuario> novoUsuario = usuarioRepository.findByCpf(cpf);
+        ModelMapper mapper = new ModelMapper();
+        if(!novoUsuario.isEmpty()){
+            novoUsuario.get().setNome(user.getNome());
+            novoUsuario.get().setEmail(user.getEmail());
+            usuarioRepository.save(novoUsuario.get());
+        }
+        return mapper.map(novoUsuario.get(), UsuarioDTO.class);
+    }
+
+    public void deletar(String cpf){
+        Optional<Usuario> usuario = usuarioRepository.findByCpf(cpf);
+        if(!usuario.isEmpty()){
+            usuarioRepository.delete(usuario.get());
+        }
+
     }
 
 }
