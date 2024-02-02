@@ -17,6 +17,7 @@ public class UserController {
     @Autowired
     private UsuarioService usuarioService;
 
+
     @PostMapping("/usuario")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioCreationDTO criarUsuario(@RequestBody UsuarioCreationDTO user){
