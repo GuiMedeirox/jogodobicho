@@ -1,30 +1,26 @@
 package com.bicho.jogodobicho.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="usuario")
-public class Usuario {
+@Table(name = "sorteio")
+public class Aposta {
 
     @Id
-    @Column(name="cpf", nullable = false, unique = true)
-    private String cpf;
-    @Column(name="nome", nullable = false)
-    private String nome;
-    @Column(name="email", nullable = false)
-    private String email;
+    @Column(name = "data", nullable = false, unique = true)
+    private LocalDate data;
+    @Column(name = "numeroGrupo", nullable = false)
+    private Integer numeroGrupo;
+    @Column(name = "numeroMilhar", nullable = false)
+    private Integer numeroMilhar;
 
     @CreationTimestamp
     @Column(name = "registradoEm", nullable = false, updatable = false)
@@ -34,28 +30,28 @@ public class Usuario {
     @Column(name = "editadoEm", nullable = false)
     private LocalDateTime editadoEm;
 
-    public String getCpf() {
-        return cpf;
+    public LocalDate getData() {
+        return data;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
-    public String getNome() {
-        return nome;
+    public Integer getNumeroGrupo() {
+        return numeroGrupo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNumeroGrupo(Integer numeroGrupo) {
+        this.numeroGrupo = numeroGrupo;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getNumeroMilhar() {
+        return numeroMilhar;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNumeroMilhar(Integer numeroMilhar) {
+        this.numeroMilhar = numeroMilhar;
     }
 
     public LocalDateTime getRegistradoEm() {
@@ -76,15 +72,15 @@ public class Usuario {
 
 
 
-    public Usuario() {
-    }
-
-    public Usuario(String cpf, String nome, String email, LocalDateTime registradoEm, LocalDateTime editadoEm) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.email = email;
+    public Aposta(LocalDate data, Integer numeroGrupo, Integer numeroMilhar, LocalDateTime registradoEm, LocalDateTime editadoEm) {
+        this.data = data;
+        this.numeroGrupo = numeroGrupo;
+        this.numeroMilhar = numeroMilhar;
         this.registradoEm = registradoEm;
         this.editadoEm = editadoEm;
+    }
+
+    public Aposta() {
     }
 
 }

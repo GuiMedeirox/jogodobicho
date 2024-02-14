@@ -40,7 +40,6 @@ public class UserController {
         return usuarioService.editar(cpf, usuario);
     }
 
-
     @DeleteMapping("/usuario/{cpf}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarUsuario(@PathVariable(value="cpf") String cpf){
